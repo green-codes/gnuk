@@ -137,6 +137,7 @@ Configuration:
 			supported targets are:
 			   FST_01
 			   FST_01G
+			   FST_01R
 			   FST_01SZ
 			   OLIMEX_STM32_H103
 			   MAPLE_MINI
@@ -204,7 +205,7 @@ STBEE)
 BLUE_PILL_G)
   MHZ=96
   ;;
-FST_01SZ)
+FST_01SZ|FST_01R)
   MHZ=96
   ;;
 *)
