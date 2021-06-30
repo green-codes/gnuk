@@ -579,7 +579,7 @@ def help():
 
 def main(show_help, erase_only, no_protect, spi_flash_check,
          reset_after_successful_write,
-         skip_blank_check, status_only, unlock, data):
+         skip_blank_check, status_only, unlock, lock, data):
     if show_help or len(sys.argv) != 1:
         help()
         return 1
@@ -659,6 +659,13 @@ def main(show_help, erase_only, no_protect, spi_flash_check,
         print("Flash ROM read protection disabled.  Reset the board, now.")
         return 0
 
+    if lock:
+        print("PROTECT")
+        # see PM0075; OPT is u32; 7:0 is RDP byte, read protect if not 0xA5
+        stl.option_bytes_erase()
+        print("Flash ROM read protection enabled.  Reset the board to enable protection.")
+        return 0
+
     if spi_flash_check and stl.has_spi_flash():
         stl.spi_flash_init()
         id = stl.spi_flash_read_id()
@@ -721,6 +728,7 @@ if __name__ == '__main__':
     skip_blank_check=True
     status_only = False
     unlock = False
+    lock = False
     data = None
     spi_flash_check = True
 
@@ -737,6 +745,10 @@ if __name__ == '__main__':
         elif sys.argv[1] == '-u':
             sys.argv.pop(1)
             unlock = True
+            break
+        elif sys.argv[1] == '-l':
+            sys.argv.pop(1)
+            lock = True
             break
         elif sys.argv[1] == '-s':
             sys.argv.pop(1)
@@ -765,7 +777,7 @@ if __name__ == '__main__':
     try:
         r = main(show_help, erase_only, no_protect, spi_flash_check,
                  reset_after_successful_write,
-                 skip_blank_check, status_only, unlock, data)
+                 skip_blank_check, status_only, unlock, lock, data)
         if r == 0:
             print(Fore.WHITE + Back.BLUE + Style.BRIGHT + "SUCCESS" + Style.RESET_ALL)
         sys.exit(r)
