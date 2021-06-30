@@ -517,7 +517,8 @@ class stlinkv2(object):
             elif self.chip_id == CHIP_ID_STM32F103xE:
                 pass
             else:
-                raise ValueError("Unknown chip ID", self.chip_id)
+                pass
+                # raise ValueError("Unknown chip ID", self.chip_id)
         else:
             self.chip_id = self.read_memory_u32(0x40015800)
             self.flash_size = (self.read_memory_u32(0x1ffff7cc) & 0xffff)*1024
