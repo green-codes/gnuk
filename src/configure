@@ -350,7 +350,7 @@ else
 fi
 
 ### !!! Replace following string of "FSIJ" to yours !!! ####
-SERIALNO="FSIJ-$(sed -e 's%^[^/]*/%%' <../VERSION)-"
+SERIALNO="MAS-GNUK-"
 
 SERIALNO_STR_LEN_DEFINE="#define SERIALNO_STR_LEN ${#SERIALNO}"
 
